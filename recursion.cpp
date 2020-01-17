@@ -2,6 +2,7 @@
     course  : Bsc(h)CS
     Year    : 1st  */
 #include<iostream>
+#include<stdlib.h>
 using namespace std;
 int GCD_iterative(int n1,int n2){
 	int temp;
@@ -20,6 +21,9 @@ int GCD(int n1,int n2){ //GCD using recursion
     }
 }
 int fact_iterative(int n){
+	if(n<0){
+		throw "Valid For Non-Negative Numbers ";
+	}
 	int result = 1;
 	for (int i=n;i>=1;i--){
 		result = result * i;
@@ -27,6 +31,9 @@ int fact_iterative(int n){
 	return result;
 }
 int fact(int n){    //Factorial using recursion
+	if(n<0){
+		throw "Valid For Non-Negative Numbers ";
+	}
     if(n == 0){
         return 1;
     }else{
@@ -34,6 +41,8 @@ int fact(int n){    //Factorial using recursion
     }
 }
 int power_iterative(int n1,int n2){
+	if(n1<0 || n2<0)
+            throw "\nThis Program Works only for positive numbers ";
 	int result = 1;
 	for(int i=1;i<=n2;i++){
 		result = result * n1;
@@ -41,6 +50,10 @@ int power_iterative(int n1,int n2){
 	return result;
 }
 int power(int n1,int n2){   //power using recursion
+
+	if(n1<0 || n2<0)
+            throw "\nThis Program Works only for positive numbers ";
+    
     if(n2 == 0){
         return 1;
     }else{
@@ -80,6 +93,7 @@ int fibo(int a,int b,int n){ //fibonacci term using recursion
 int main(){ // Driver code
     char ch;
     do{
+    	system("CLS");
         int choice;
         cout<<"\nChoose 1 to find gcd of two numbers \n";
         cout<<"Choose 2 to find factorial of a number \n";
@@ -100,60 +114,53 @@ int main(){ // Driver code
                 break;
             }
             case 2 :{
-                int n;
+                int n,fact_r,fact_i;
                 cout<<"Enter A Number To Find Factorial : ";
                 cin>>n;
                 try{
-                	if(n<0){
-                		throw "Error : Negative Value Entered";
-					}
+                	fact_i = fact_iterative(n);
+                	fact_r = fact(n);
+					cout<<"Factorial of "<<n<<" using recursion is : "<<fact_r;
+                	cout<<"\nFactorial of "<<n<<" using iteration is : "<<fact_i;	
 				}
 				catch(const char* s){
 					cout<<s;
 				}
-//                if(n<0){      //to check if number is positive or not
-//                    cout<<"\nEnter Only Positive number or 0 ";
-//                    break;
-//                }
-                cout<<"Factorial of "<<n<<" using recursion is : "<<fact(n);
-                cout<<"\nFactorial of "<<n<<" using iteration is : "<<fact_iterative(n);
                 break;
             }
             case 3 :{
-                int n1,n2;
+                int n1,n2,power_r,power_i;
                 cout<<"Enter 2 numbers n1 and n2 to find n1^n2 :-";
                 cout<<"\nN1 : ";
                 cin>>n1;
                 cout<<"N2 : ";
                 cin>>n2;
                 try{   //to check if number is positive
-                	if(n1<0 || n2<0)
-                    throw "\nThis Program Works only for positive numbers ";
+                	power_r = power(n1,n2);
+                	power_i = power_iterative(n1,n2);
+                	cout<<"The Answer of "<<n1<<"^"<<n2<<"using recursion is : "<<power_r;
+                	cout<<"\nThe Answer of "<<n1<<"^"<<n2<<"using iteration is : "<<power_i;
                     
                 }
                 catch(const char* str){
                 	cout<<str;
 				}
-				
-                cout<<"The Answer of "<<n1<<"^"<<n2<<"using recursion is : "<<power(n1,n2);
-                cout<<"\nThe Answer of "<<n1<<"^"<<n2<<"using iteration is : "<<power_iterative(n1,n2);
-                break;
+				break;
             }
             case 4 :{
                 int n;
                 cout<<"Enter A Number n to print n terms of fibonacci series : ";
                 cin>>n;
-               
-                
-                try{
-                		cout<<"Using Recursion "<<n<<" Number Of Terms : ";
-                		fibo(0,1,n);
-		                cout<<"\nUsing iteration "<<n<<" Number Of Terms : ";
-						fibo_iterative(n);
-		                break;
-				}catch(const char*str){
-					cout<<str;
+               	if (n<0){
+               			cout<<"Enter Positive Value Only ";
+               			break;	
 				}
+                cout<<"Using Recursion "<<n<<" Number Of Terms : ";
+                fibo(0,1,n);
+		        cout<<"\nUsing iteration "<<n<<" Number Of Terms : ";
+				fibo_iterative(n);
+			
+				break;
 			
             }
             default : cout<<"\nChoose From 1 - 4 ";
